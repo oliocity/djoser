@@ -136,6 +136,7 @@ class PasswordResetView(utils.ActionViewMixin, generics.GenericAPIView):
     def send_password_reset_email(self, user):
         email_factory = utils.UserPasswordResetEmailFactory.from_request(self.request, user=user)
         email = email_factory.create()
+        print("sending email")
         email.send()
 
 

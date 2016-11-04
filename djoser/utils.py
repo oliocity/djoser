@@ -76,14 +76,17 @@ class UserEmailFactoryBase(object):
 
         if self.plain_body_template_name:
             plain_body = loader.render_to_string(self.plain_body_template_name, context)
+            print("plain body: " + plain_body)
             email_message = EmailMultiAlternatives(subject, plain_body, self.from_email, [self.user.email])
             if self.html_body_template_name:
                 html_body = loader.render_to_string(self.html_body_template_name, context)
                 email_message.attach_alternative(html_body, 'text/html')
         else:
             html_body = loader.render_to_string(self.html_body_template_name, context)
+            print("html body: " + html_body)
             email_message = EmailMessage(subject, html_body, self.from_email, [self.user.email])
             email_message.content_subtype = 'html'
+        print("created email to: " + self.user.email)
         return email_message
 
     def get_context(self):
